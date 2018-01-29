@@ -1,0 +1,44 @@
+{% extends 'base.html'%} {% block style %} {% endblock %} {% block content %} {% load static %}
+
+<!-- # useremail = models.EmailField(max_length=100,blank=False)
+    # item_id = models.IntegerField(max_length=10,blank=False)
+    # item_name = models.CharField(max_length=60,blank=False)
+    # item_image = models.ImageField()
+    # item_from = models.CharField(max_length=20,blank=False)
+    # item_to = models.CharField(max_length=20,blank=False)
+    # item_start_time = models.DateTimeField()
+    # item_arrive_time = models.DateTimeField()
+    # item_description = models.CharField(max_length=150,blank=True)
+    # item_price = models.FloatField(max_length=10,blank=False)
+    # item_price_currency = models.CharField(max_length=10,blank=False) -->
+
+<!-- bg-primary -->
+<!-- <div class="card-deck" style="width:900px;background-color:blue"> -->
+<div class="container" style="width:800px;margin-top:5px">
+  <div class="row" style="">
+    {% for item in items %}
+    <div class="col-6 col-md-3">
+      <div class="card bg-light" style="width:200px;height:300px">
+        <img class="card-img-top" style="width:200px;height:100px" src="/media/{{item.item_image}}" alt="Card image cap">
+        <div class="card-body">
+          <div class="row">
+            <button class="col">
+              <small>詳細內容</small>
+            </button>
+            <button class="col">
+              <small>收藏</small>
+            </button>
+          </div>
+        <h5 class="card-title">{{item.item_name}}</h5>
+        <span class="card-text d-block">price:{{item.item_price}}{{item.item_price_currency}}</span>
+        <span class="card-text d-block">{{item.item_from}} → {{item.item_to}}</span>
+        <span class="card-text d-block">{{item.item_arrive_time}}</span>
+        </div>
+      </div>
+
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

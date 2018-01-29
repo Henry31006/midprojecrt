@@ -1,0 +1,159 @@
+{% extends 'base.html'%} {% block content %}
+
+
+
+<div class="container" style="margin-top:20px;">
+    <div class="row">
+        <div class="col-sm-2" id='left'>
+            <div id="list-example" class="list-group" style="margin-top:20px;width:150px">
+                <img src="/media/{{member.user_image}}" class="img-thumbnail img-fluid" style="border-radius: 50%" alt="">
+                <a class="list-group-item list-group-item-action" href="#list-item-1">我的委託</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-2">我的收藏</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-3">個人資訊</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-4">出行資訊發佈</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-5">帳號密碼</a>
+            </div>
+        </div>
+        <div class="col-sm-10">
+            <div data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example">
+                <h4 id="list-item-1">我的委託</h4>
+                <div class="row" style="">
+                    {% for item in user_items %}
+                    <div class="col-6 col-md-3">
+                        <div class="card bg-light" style="width:200px;height:300px">
+                            <img class="card-img-top" style="width:200px;height:100px" src="/media/{{item.item_image}}" alt="Card image cap">
+                            <div class="card-body">
+                                <div class="row">
+                                    <button class="col">
+                                        <a href="{% url 'item:update' item.id %}">修改</a> 
+                                    </button>
+                                    <button class="col">
+                                        <a href="{% url 'item:delete' item.id %}">刪除</a>
+                                    </button>
+                                </div>
+                                <h5 class="card-title">{{item.item_name}}</h5>
+                                <span class="card-text d-block">price:{{item.item_price}}{{item.item_price_currency}}</span>
+                                <span class="card-text d-block">{{item.item_from}} → {{item.item_to}}</span>
+                                <span class="card-text d-block">{{item.item_arrive_time}}</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    {% endfor %}
+                </div>
+                <hr>
+                <h4 id="list-item-3">編輯個人資料</h4>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="user_image">大頭貼</label>
+                        <input type="file" class="form-control col-sm-3" name="user_image" id="user_image" placeholder="王小明" value="{{member.user_image}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="user_name">稱呼</label>
+                        <input style="width:150px" type="text" class="form-control col-sm-3" name="user_name" placeholder="王小明" value="{{member.user_name}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="user_birth">生日</label>
+                        <input type="date" class="form-control col-sm-3" name="user_birth" id="user_birth" placeholder="name@example.com" value="{{member.user_birth | date:'Y-m-d'}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="user_nationality">國籍</label>
+                        <select style="width:120px" class="form-control scrollable" name="user_nationality" id="user_nationality" value="{{member.user_nationality}}">
+                            <option value="else">其他</option>
+                            <optgroup label="亞洲">
+                                <option value="tw">台灣</option>
+                                <option value="hk">香港</option>
+                                <option value="jp">日本</option>
+                                <option value="kr">韓國</option>
+                                <option value="cn">中國</option>
+                                <option value="my">馬來西亞</option>
+                                <option value="sg">新加坡</option>
+                            </optgroup>
+                            <optgroup label="美洲">
+                                <option value="us">美國</option>
+                                <option value="ca">加拿大</option>
+                            </optgroup>
+                            <optgroup label="大洋洲">
+                                <option value="nz">紐西蘭</option>
+                                <option value="au">澳洲</option>
+                            </optgroup>
+                            <optgroup label="歐洲">
+                                <option value="uk">英國</option>
+                                <option value="de">德國</option>
+                                <option value="fr">法國</option>
+                                <option value="es">西班牙</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="user_about">關於我</label>
+                        <textarea class="form-control" name="user_about" id="user_about" rows="3">{{member.user_about}}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">修改</button>
+                </form>
+                <hr>
+                <h4 id="list-item-4">出行資訊發佈</h4>
+                <p>...</p>
+                <hr>
+                <h4 id="list-item-5">帳號密碼</h4>
+                <form action="{% url 'member:update' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group" hidden>
+                        <label for="useremail">電子郵件</label>
+                        <input type="email" class="form-control" id="useremail" name="user_email" aria-describedby="emailHelp" value="{{member.user_email}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="user_email_new">電子郵件</label>
+                        <input type="email" class="form-control" id="user_email_new" name="user_email_new" aria-describedby="emailHelp" placeholder="{{member.user_email}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="userpassword">密碼</label>
+                        <input type="password" class="form-control" name="user_password" id="userpassword" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="userpassword_re">確認密碼</label>
+                        <input type="password" class="form-control" name="user_password" id="userpassword_re" placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">修改</button>
+                </form>
+                <hr>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} {% block script %}
+<script>
+    $("#user_nationality option[value='{{member.user_nationality}}']").prop('selected', true);
+
+
+    // $("#list-example").find('a').click(function(){
+    //     $(this).prop('active',true)
+    // })
+
+
+    var length = $('#left').height() - $('#list-example').height() + $('#left').offset().top;
+    $(window).scroll(function () {
+        var scroll = $(this).scrollTop();
+        var height = $('#list-example').height() + 'px';
+        if (scroll < $('#left').offset().top) {
+            $('#list-example').css({
+                'position': 'absolute',
+                'top': '0'
+            });
+        } else if (scroll > length) {
+            $('#list-example').css({
+                'position': 'absolute',
+                'bottom': '0',
+                'top': 'auto'
+            });
+        } else {
+            $('#list-example').css({
+                'position': 'fixed',
+                'top': '0',
+                'height': height
+            });
+        }
+    });
+</script> {% endblock %}

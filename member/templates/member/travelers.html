@@ -1,0 +1,38 @@
+{% extends 'base.html'%} {% block content %} {% load static %}
+<div class="container" style="width:900px">
+    <table class="table" style="margin-top:10px">
+        <thead>
+            <tr class="row">
+                <th class="col-2">旅人照片</th>
+                <th class="col-8" style="border-left:1px solid lightgray;">關於旅人</th>
+                <th class="col-2" style="border-left:1px solid lightgray;">編輯</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in members %}
+            <tr class="row">
+                <td class="col-2">
+                    <img src="/media/{{member.user_image}}" class="img-thumbnail img-fluid" style="border-radius: 50%;">
+                </td>
+                <td class="col-8" style="border-left:1px solid lightgray;">
+                    <p>from:{{member.user_nationality}}</p>
+                    <p>about:{{member.user_about}}</p>
+                </td>
+                <td class="col-2" style="border-left:1px solid lightgray;">
+                    <p>
+                        <a href="#" class="btn btn-secondary">
+                            <i class="fa fa-pencil" aria-hidden="true">123</i>
+                        </a>
+                    </p>
+                    <p>
+                        <a href="#" class="btn btn-danger">
+                            <i class="fa fa-trash" aria-hidden="true">456</i>
+                        </a>
+                    </p>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

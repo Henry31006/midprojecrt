@@ -1,0 +1,118 @@
+{% extends 'base.html'%} {% block content %} {% load static %}
+<div class="container" style="width:800px;">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="item_image">物品圖片</label>
+            <input type="file" class="form-control-file" name="item_image" id="item_image">
+        </div>
+        <div class="form-group" hidden>
+            <input type="text" class="form-control" style="width:300px" name="user_email" id="user_email" value="{{ request.COOKIES.useraccount }}">
+        </div>
+        <div class="form-group">
+            <label for="item_name">物品名稱</label>
+            <input type="text" class="form-control" style="width:300px" name="item_name" id="item_name" value="{{item.item_name}}">
+        </div>
+        <div class="form-group">
+            <label for="item_from">商品位置</label>
+            <select class="form-control" style="width:100px" name="item_from" id="item_from">
+                <option value="else">其他</option>
+                <optgroup label="亞洲">
+                    <option value="tw">台灣</option>
+                    <option value="hk">香港</option>
+                    <option value="jp">日本</option>
+                    <option value="kr">韓國</option>
+                    <option value="cn">中國</option>
+                    <option value="my">馬來西亞</option>
+                    <option value="sg">新加坡</option>
+                </optgroup>
+                <optgroup label="美洲">
+                    <option value="us">美國</option>
+                    <option value="ca">加拿大</option>
+                </optgroup>
+                <optgroup label="大洋洲">
+                    <option value="nz">紐西蘭</option>
+                    <option value="au">澳洲</option>
+                </optgroup>
+                <optgroup label="歐洲">
+                    <option value="uk">英國</option>
+                    <option value="de">德國</option>
+                    <option value="fr">法國</option>
+                    <option value="es">西班牙</option>
+                </optgroup>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="item_to">物品送達</label>
+            <select class="form-control" style="width:100px" name="item_to" id="item_to">
+                <option value="else">其他</option>
+                <optgroup label="亞洲">
+                    <option value="tw">台灣</option>
+                    <option value="hk">香港</option>
+                    <option value="jp">日本</option>
+                    <option value="kr">韓國</option>
+                    <option value="cn">中國</option>
+                    <option value="my">馬來西亞</option>
+                    <option value="sg">新加坡</option>
+                </optgroup>
+                <optgroup label="美洲">
+                    <option value="us">美國</option>
+                    <option value="ca">加拿大</option>
+                </optgroup>
+                <optgroup label="大洋洲">
+                    <option value="nz">紐西蘭</option>
+                    <option value="au">澳洲</option>
+                </optgroup>
+                <optgroup label="歐洲">
+                    <option value="uk">英國</option>
+                    <option value="de">德國</option>
+                    <option value="fr">法國</option>
+                    <option value="es">西班牙</option>
+                </optgroup>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="item_arrive_time">送達日期</label>
+            <input type="date" class="form-control" style="width:200px" name="item_arrive_time" id="item_arrive_time" value="{{item.item_arrive_time | date:'Y-m-d'}}">
+        </div>
+        <div class="form-group">
+            <label for="item_price">商品標價</label>
+            <input type="number" class="form-control" style="width:150px" name="item_price" id="item_price" value="{{item.item_price}}">
+        </div>
+        <div class="form-group">
+            <label for="item_price_currency">幣別</label>
+            <select class="form-control" style="width:100px" name="item_price_currency" id="item_price_currency">
+                <option value="else">其他</option>
+                <option value="TWD">TWD</option>
+                <option value="CNY">CNY</option>
+                <option value="HKD">HKD</option>
+                <option value="JPY">JPY</option>
+                <option value="KRW">KRW</option>
+                <option value="MYR">MYR</option>
+                <option value="SGD">SGD</option>
+                <option value="USD">USD</option>
+                <option value="CAD">CAD</option>
+                <option value="NZD">NZD</option>
+                <option value="AUD">AUD</option>
+                <option value="GBP">GBP</option>
+                <option value="EUR">EUR</option>
+                </optgroup>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="item_description">商品描述</label>
+            <textarea placeholder="數量:
+規格:
+其他:" class="form-control" name="item_description" id="item_description" rows="4">{{item.item_description}}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="">新增物品</button>
+    </form>
+</div>
+
+
+{% endblock %} {% block script %}
+<script>
+    $("#item_from option[value='{{item.item_from}}']").prop('selected', true);
+    $("#item_to option[value='{{item.item_to}}']").prop('selected', true);
+    $("#item_price_currency option[value='{{item.item_price_currency}}']").prop('selected', true);
+</script> {% endblock %}

@@ -1,0 +1,58 @@
+<footer class="mt-5">
+    <div class="container text-center bg-light pt-2 pb-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <ul>
+                        <h5>dropbuy</h5>
+                        <li>
+                            <a href="{% url 'home:about' %}">關於我們</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'home:about' %}">加入團隊</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'home:about' %}">幫助</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm">
+                    <ul>
+                        <h5>委託</h5>
+                        {% if request.COOKIES.useraccount %}
+                        <li>
+                            <a href="{% url 'member:profile' request.COOKIES.useraccount %}">我的委託</a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a style="cursor:pointer;color:#007bff"  data-toggle="modal" data-dismiss="modal" data-target="#exampleModal" >我的委託</a>
+                        </li>
+                        {% endif %}
+                        <li>
+                            <a href="{% url 'home:about' %}">如何委託</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'home:about' %}">信任與安全</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm">
+                    <ul>
+                        <h5>接單</h5>
+                        <li>
+                            <a href="{% url 'item:item' %}">代購</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'home:about' %}">單日快遞</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'home:about' %}">即時訊息</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <hr style="border-botton:3px solid black ">
+        <p>&copy; Copyright 2018 - AIEN </p>
+    </div>
+</footer>
